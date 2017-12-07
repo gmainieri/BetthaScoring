@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bettha_Scoring.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,11 @@ namespace Bettha_Scoring.Controllers
     {
         public ActionResult Index()
         {
+
+            var db = new ApplicationDbContext();
+
+            var teste = db.Tests.Where(x => x.name != null).ToList();
+
             return View();
         }
 
