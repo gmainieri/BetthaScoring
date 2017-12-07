@@ -1,0 +1,2731 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BetthaModel.Store" Provider="Devart.Data.PostgreSql" ProviderManifestToken="PostgreSQL, 10.1.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="active_admin_comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="namespace" Type="varchar" MaxLength="65535" />
+          <Property Name="body" Type="text" />
+          <Property Name="resource_id" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="resource_type" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="author_id" Type="int" />
+          <Property Name="author_type" Type="varchar" MaxLength="65535" />
+          <Property Name="created_at" Type="timestamp" Precision="6" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" />
+        </EntityType>
+        <EntityType Name="admin_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="encrypted_password" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="reset_password_token" Type="varchar" MaxLength="65535" />
+          <Property Name="reset_password_sent_at" Type="timestamp" Precision="6" />
+          <Property Name="remember_created_at" Type="timestamp" Precision="6" />
+          <Property Name="sign_in_count" Type="int" Nullable="false" />
+          <Property Name="current_sign_in_at" Type="timestamp" Precision="6" />
+          <Property Name="last_sign_in_at" Type="timestamp" Precision="6" />
+          <Property Name="current_sign_in_ip" Type="inet" MaxLength="241" />
+          <Property Name="last_sign_in_ip" Type="inet" MaxLength="241" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="application_settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="application_id" Type="int" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="source" Type="varchar" MaxLength="256" />
+          <Property Name="expires_in" Type="smallint" />
+          <Property Name="max_retries" Type="smallint" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="application_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="application_id" Type="int" Nullable="false" />
+          <Property Name="external_id" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="applications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="secret" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="callback_url" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="redirect_url" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="share_url" Type="varchar" MaxLength="65535" />
+          <Property Name="adapter" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="send_result" Type="boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="campaign_test_appearances">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="campaign_id" Type="int" />
+          <Property Name="test_appearance_id" Type="int" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="email_content" Type="varchar" MaxLength="65535" />
+        </EntityType>
+        <EntityType Name="campaign_user_infos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="cpf" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="application_user_id" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="campaigns">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="slug" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="application_id" Type="int" Nullable="false" />
+          <Property Name="client_name" Type="varchar" MaxLength="65535" />
+          <Property Name="finished" Type="boolean" />
+          <Property Name="logo_file_name" Type="varchar" MaxLength="65535" />
+          <Property Name="logo_content_type" Type="varchar" MaxLength="65535" />
+          <Property Name="logo_file_size" Type="int" />
+          <Property Name="logo_updated_at" Type="timestamp" Precision="6" />
+          <Property Name="color" Type="varchar" MaxLength="65535" />
+          <Property Name="number_of_resends" Type="int" Nullable="false" />
+          <Property Name="number_of_resets" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="captured_emails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execution_id" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="evaluation_send_logs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execution_id" Type="int" Nullable="false" />
+          <Property Name="send_time" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="status" Type="enum" MaxLength="65535" Nullable="false" />
+          <Property Name="message" Type="text" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="execution_answers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execution_id" Type="int" Nullable="false" />
+          <Property Name="test_section_question_id" Type="int" Nullable="false" />
+          <Property Name="test_section_question_option_id" Type="int" Nullable="false" />
+          <Property Name="extra_score" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="execution_competence_evaluations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execution_id" Type="int" Nullable="false" />
+          <Property Name="test_competence_id" Type="int" Nullable="false" />
+          <Property Name="test_profile_id" Type="int" />
+          <Property Name="score" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="execution_evaluations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execution_id" Type="int" Nullable="false" />
+          <Property Name="test_profile_id" Type="int" />
+          <Property Name="score" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="execution_steps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execution_id" Type="int" Nullable="false" />
+          <Property Name="test_section_id" Type="int" Nullable="false" />
+          <Property Name="position" Type="smallint" Nullable="false" />
+          <Property Name="status" Type="enum" MaxLength="65535" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="spent_time" Type="int" />
+        </EntityType>
+        <EntityType Name="executions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="test_appearance_id" Type="int" Nullable="false" />
+          <Property Name="application_user_id" Type="int" Nullable="false" />
+          <Property Name="retries" Type="smallint" Nullable="false" />
+          <Property Name="token" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="start_time" Type="timestamp" Precision="6" />
+          <Property Name="finish_time" Type="timestamp" Precision="6" />
+          <Property Name="valid_until" Type="timestamp" Precision="6" />
+          <Property Name="discard_time" Type="timestamp" Precision="6" />
+          <Property Name="external" Type="boolean" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="rating" Type="smallint" />
+          <Property Name="type" Type="varchar" MaxLength="65535" />
+          <Property Name="campaign_id" Type="int" />
+        </EntityType>
+        <EntityType Name="media_elements">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="65535" />
+          <Property Name="media_type" Type="int" />
+          <Property Name="mediable_id" Type="int" />
+          <Property Name="mediable_type" Type="varchar" MaxLength="65535" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="minimo_english_test_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="score" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="test_calibration_id" Type="int" Nullable="false" />
+          <Property Name="answer_pattern" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="execution_id" Type="int" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Bettha.public.schema_migrations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="schema_migrations">
+          <Key>
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="version" Type="varchar" MaxLength="65535" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_appearance_pages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_appearance_id" Type="int" Nullable="false" />
+          <Property Name="test_profile_id" Type="int" />
+          <Property Name="type" Type="enum" MaxLength="65535" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="content" Type="text" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Bettha.public.test_appearance_sections' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="test_appearance_sections">
+          <Key>
+            <PropertyRef Name="test_appearance_id" />
+            <PropertyRef Name="test_section_id" />
+          </Key>
+          <Property Name="test_appearance_id" Type="int" Nullable="false" />
+          <Property Name="test_section_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_appearances">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_competences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="extra_info" Type="varchar" MaxLength="65535" />
+        </EntityType>
+        <EntityType Name="test_levels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="answer_time" Type="smallint" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_profile_ranges">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="test_profile_id" Type="int" Nullable="false" />
+          <Property Name="range_start" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="range_end" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_profiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="65535" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_section_question_options">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_section_question_id" Type="int" Nullable="false" />
+          <Property Name="test_competence_id" Type="int" />
+          <Property Name="content" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="score" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="external_id" Type="varchar" MaxLength="65535" />
+          <Property Name="extra_content" Type="varchar" MaxLength="65535" />
+        </EntityType>
+        <EntityType Name="test_section_questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_section_id" Type="int" Nullable="false" />
+          <Property Name="content" Type="text" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test_section_types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="min" Type="smallint" />
+          <Property Name="max" Type="smallint" />
+        </EntityType>
+        <EntityType Name="test_sections">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="test_level_id" Type="int" Nullable="false" />
+          <Property Name="test_section_type_id" Type="int" Nullable="false" />
+          <Property Name="test_competence_id" Type="int" />
+          <Property Name="position" Type="smallint" />
+          <Property Name="title" Type="varchar" MaxLength="250" />
+          <Property Name="description" Type="varchar" MaxLength="500" />
+          <Property Name="important" Type="boolean" Nullable="false" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="expires_in" Type="smallint" />
+          <Property Name="max_retries" Type="smallint" />
+          <Property Name="answer_time" Type="smallint" />
+          <Property Name="deprecated" Type="boolean" Nullable="false" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="encrypted_password" Type="varchar" MaxLength="65535" Nullable="false" />
+          <Property Name="reset_password_token" Type="varchar" MaxLength="65535" />
+          <Property Name="reset_password_sent_at" Type="timestamp" Precision="6" />
+          <Property Name="remember_created_at" Type="timestamp" Precision="6" />
+          <Property Name="sign_in_count" Type="int" Nullable="false" />
+          <Property Name="current_sign_in_at" Type="timestamp" Precision="6" />
+          <Property Name="last_sign_in_at" Type="timestamp" Precision="6" />
+          <Property Name="current_sign_in_ip" Type="inet" MaxLength="241" />
+          <Property Name="last_sign_in_ip" Type="inet" MaxLength="241" />
+          <Property Name="created_at" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_rails_11c5e69489">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="0..1" />
+          <End Role="execution_evaluations" Type="Self.execution_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_evaluations">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_12646144e0">
+          <End Role="test_section_types" Type="Self.test_section_types" Multiplicity="1" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_sections">
+              <PropertyRef Name="test_section_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_189d49126b">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_steps" Type="Self.execution_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_steps">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_18a6bf9ec9">
+          <End Role="campaigns" Type="Self.campaigns" Multiplicity="0..1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campaigns">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="campaign_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_1bef5c552f">
+          <End Role="applications" Type="Self.applications" Multiplicity="1" />
+          <End Role="application_users" Type="Self.application_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="applications">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="application_users">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_2eae88a83d">
+          <End Role="test_levels" Type="Self.test_levels" Multiplicity="1" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_levels">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_sections">
+              <PropertyRef Name="test_level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_3ae2d4da70">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_answers" Type="Self.execution_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_answers">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_3f2d78c98f">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_profile_ranges" Type="Self.test_profile_ranges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_profile_ranges">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_4142ad0580">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="1" />
+          <End Role="test_profile_ranges" Type="Self.test_profile_ranges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_profile_ranges">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_488cdcc7ee">
+          <End Role="applications" Type="Self.applications" Multiplicity="1" />
+          <End Role="application_settings" Type="Self.application_settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="applications">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="application_settings">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_4b37ca3bdd">
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="1" />
+          <End Role="test_section_questions" Type="Self.test_section_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_sections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_section_questions">
+              <PropertyRef Name="test_section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_4c19df1658">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="0..1" />
+          <End Role="campaign_test_appearances" Type="Self.campaign_test_appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaign_test_appearances">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_52e00ddf60">
+          <End Role="applications" Type="Self.applications" Multiplicity="1" />
+          <End Role="campaigns" Type="Self.campaigns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="applications">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaigns">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_5b20ee6d48">
+          <End Role="campaigns" Type="Self.campaigns" Multiplicity="0..1" />
+          <End Role="campaign_test_appearances" Type="Self.campaign_test_appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campaigns">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaign_test_appearances">
+              <PropertyRef Name="campaign_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_6005bc7cb3">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_levels" Type="Self.test_levels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_levels">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_703c720730">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="applications" Type="Self.applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="applications">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_740feeb099">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="evaluation_send_logs" Type="Self.evaluation_send_logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="evaluation_send_logs">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_75605752ce">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="captured_emails" Type="Self.captured_emails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="captured_emails">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_7fdfbeb16a">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="0..1" />
+          <End Role="test_appearance_pages" Type="Self.test_appearance_pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearance_pages">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_813e4f0473">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="application_settings" Type="Self.application_settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="application_settings">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_855c29d156">
+          <End Role="test_section_questions" Type="Self.test_section_questions" Multiplicity="1" />
+          <End Role="execution_answers" Type="Self.execution_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_answers">
+              <PropertyRef Name="test_section_question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_908987af28">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_90a50dcd90">
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="0..1" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_competences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_sections">
+              <PropertyRef Name="test_competence_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_9b1471e47f">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_profiles">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_abd8bbc56c">
+          <End Role="test_section_questions" Type="Self.test_section_questions" Multiplicity="1" />
+          <End Role="test_section_question_options" Type="Self.test_section_question_options" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_section_question_options">
+              <PropertyRef Name="test_section_question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ac06d29efb">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="1" />
+          <End Role="test_appearance_pages" Type="Self.test_appearance_pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearance_pages">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ac54fc3ebe">
+          <End Role="application_users" Type="Self.application_users" Multiplicity="1" />
+          <End Role="campaign_user_infos" Type="Self.campaign_user_infos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="application_users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaign_user_infos">
+              <PropertyRef Name="application_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_acbc7b93ac">
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="1" />
+          <End Role="execution_competence_evaluations" Type="Self.execution_competence_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_competences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_competence_evaluations">
+              <PropertyRef Name="test_competence_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_b477624c14">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_competences">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ba0057cd13">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_evaluations" Type="Self.execution_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_evaluations">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_baa1aeb43c">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="1" />
+          <End Role="test_appearance_sections" Type="Self.test_appearance_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearance_sections">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_bd9e74de0c">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="0..1" />
+          <End Role="execution_competence_evaluations" Type="Self.execution_competence_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_competence_evaluations">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_d26d521767">
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="1" />
+          <End Role="execution_steps" Type="Self.execution_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_sections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_steps">
+              <PropertyRef Name="test_section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_d42b7e9b41">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_competence_evaluations" Type="Self.execution_competence_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_competence_evaluations">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_db49421dbb">
+          <End Role="executions" Type="Self.executions" Multiplicity="0..1" />
+          <End Role="minimo_english_test_data" Type="Self.minimo_english_test_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="minimo_english_test_data">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_dc4ecd8042">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ec0272c90a">
+          <End Role="test_section_question_options" Type="Self.test_section_question_options" Multiplicity="1" />
+          <End Role="execution_answers" Type="Self.execution_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_question_options">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_answers">
+              <PropertyRef Name="test_section_question_option_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ed7fd02d0b">
+          <End Role="application_users" Type="Self.application_users" Multiplicity="1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="application_users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="application_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_f1c711dd82">
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="0..1" />
+          <End Role="test_section_question_options" Type="Self.test_section_question_options" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_competences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_section_question_options">
+              <PropertyRef Name="test_competence_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_fac974b1a0">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearances">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_fe7e07f9c8">
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="1" />
+          <End Role="test_appearance_sections" Type="Self.test_appearance_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_sections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearance_sections">
+              <PropertyRef Name="test_section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BetthaModelStoreContainer">
+          <EntitySet Name="active_admin_comments" EntityType="Self.active_admin_comments" Schema="public" store:Type="Tables" />
+          <EntitySet Name="admin_users" EntityType="Self.admin_users" Schema="public" store:Type="Tables" />
+          <EntitySet Name="application_settings" EntityType="Self.application_settings" Schema="public" store:Type="Tables" />
+          <EntitySet Name="application_users" EntityType="Self.application_users" Schema="public" store:Type="Tables" />
+          <EntitySet Name="applications" EntityType="Self.applications" Schema="public" store:Type="Tables" />
+          <EntitySet Name="campaign_test_appearances" EntityType="Self.campaign_test_appearances" Schema="public" store:Type="Tables" />
+          <EntitySet Name="campaign_user_infos" EntityType="Self.campaign_user_infos" Schema="public" store:Type="Tables" />
+          <EntitySet Name="campaigns" EntityType="Self.campaigns" Schema="public" store:Type="Tables" />
+          <EntitySet Name="captured_emails" EntityType="Self.captured_emails" Schema="public" store:Type="Tables" />
+          <EntitySet Name="evaluation_send_logs" EntityType="Self.evaluation_send_logs" Schema="public" store:Type="Tables" />
+          <EntitySet Name="execution_answers" EntityType="Self.execution_answers" Schema="public" store:Type="Tables" />
+          <EntitySet Name="execution_competence_evaluations" EntityType="Self.execution_competence_evaluations" Schema="public" store:Type="Tables" />
+          <EntitySet Name="execution_evaluations" EntityType="Self.execution_evaluations" Schema="public" store:Type="Tables" />
+          <EntitySet Name="execution_steps" EntityType="Self.execution_steps" Schema="public" store:Type="Tables" />
+          <EntitySet Name="executions" EntityType="Self.executions" Schema="public" store:Type="Tables" />
+          <EntitySet Name="media_elements" EntityType="Self.media_elements" Schema="public" store:Type="Tables" />
+          <EntitySet Name="minimo_english_test_data" EntityType="Self.minimo_english_test_data" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_appearance_pages" EntityType="Self.test_appearance_pages" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_appearances" EntityType="Self.test_appearances" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_competences" EntityType="Self.test_competences" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_levels" EntityType="Self.test_levels" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_profile_ranges" EntityType="Self.test_profile_ranges" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_profiles" EntityType="Self.test_profiles" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_section_question_options" EntityType="Self.test_section_question_options" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_section_questions" EntityType="Self.test_section_questions" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_section_types" EntityType="Self.test_section_types" Schema="public" store:Type="Tables" />
+          <EntitySet Name="test_sections" EntityType="Self.test_sections" Schema="public" store:Type="Tables" />
+          <EntitySet Name="tests" EntityType="Self.tests" Schema="public" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="public" store:Type="Tables" />
+          <EntitySet Name="schema_migrations" EntityType="Self.schema_migrations" store:Type="Tables" store:Schema="public">
+            <DefiningQuery>SELECT 
+schema_migrations."version"
+FROM public.schema_migrations AS schema_migrations</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="test_appearance_sections" EntityType="Self.test_appearance_sections" store:Type="Tables" store:Schema="public">
+            <DefiningQuery>SELECT 
+test_appearance_sections.test_appearance_id,
+test_appearance_sections.test_section_id
+FROM public.test_appearance_sections AS test_appearance_sections</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_rails_11c5e69489" Association="Self.fk_rails_11c5e69489">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="execution_evaluations" EntitySet="execution_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_12646144e0" Association="Self.fk_rails_12646144e0">
+            <End Role="test_section_types" EntitySet="test_section_types" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_189d49126b" Association="Self.fk_rails_189d49126b">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_steps" EntitySet="execution_steps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_18a6bf9ec9" Association="Self.fk_rails_18a6bf9ec9">
+            <End Role="campaigns" EntitySet="campaigns" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_1bef5c552f" Association="Self.fk_rails_1bef5c552f">
+            <End Role="applications" EntitySet="applications" />
+            <End Role="application_users" EntitySet="application_users" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_2eae88a83d" Association="Self.fk_rails_2eae88a83d">
+            <End Role="test_levels" EntitySet="test_levels" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_3ae2d4da70" Association="Self.fk_rails_3ae2d4da70">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_answers" EntitySet="execution_answers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_3f2d78c98f" Association="Self.fk_rails_3f2d78c98f">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_profile_ranges" EntitySet="test_profile_ranges" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_4142ad0580" Association="Self.fk_rails_4142ad0580">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="test_profile_ranges" EntitySet="test_profile_ranges" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_488cdcc7ee" Association="Self.fk_rails_488cdcc7ee">
+            <End Role="applications" EntitySet="applications" />
+            <End Role="application_settings" EntitySet="application_settings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_4b37ca3bdd" Association="Self.fk_rails_4b37ca3bdd">
+            <End Role="test_sections" EntitySet="test_sections" />
+            <End Role="test_section_questions" EntitySet="test_section_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_4c19df1658" Association="Self.fk_rails_4c19df1658">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="campaign_test_appearances" EntitySet="campaign_test_appearances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_52e00ddf60" Association="Self.fk_rails_52e00ddf60">
+            <End Role="applications" EntitySet="applications" />
+            <End Role="campaigns" EntitySet="campaigns" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_5b20ee6d48" Association="Self.fk_rails_5b20ee6d48">
+            <End Role="campaigns" EntitySet="campaigns" />
+            <End Role="campaign_test_appearances" EntitySet="campaign_test_appearances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_6005bc7cb3" Association="Self.fk_rails_6005bc7cb3">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_levels" EntitySet="test_levels" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_703c720730" Association="Self.fk_rails_703c720730">
+            <End Role="users" EntitySet="users" />
+            <End Role="applications" EntitySet="applications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_740feeb099" Association="Self.fk_rails_740feeb099">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="evaluation_send_logs" EntitySet="evaluation_send_logs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_75605752ce" Association="Self.fk_rails_75605752ce">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="captured_emails" EntitySet="captured_emails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_7fdfbeb16a" Association="Self.fk_rails_7fdfbeb16a">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="test_appearance_pages" EntitySet="test_appearance_pages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_813e4f0473" Association="Self.fk_rails_813e4f0473">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="application_settings" EntitySet="application_settings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_855c29d156" Association="Self.fk_rails_855c29d156">
+            <End Role="test_section_questions" EntitySet="test_section_questions" />
+            <End Role="execution_answers" EntitySet="execution_answers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_908987af28" Association="Self.fk_rails_908987af28">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_90a50dcd90" Association="Self.fk_rails_90a50dcd90">
+            <End Role="test_competences" EntitySet="test_competences" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_9b1471e47f" Association="Self.fk_rails_9b1471e47f">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_profiles" EntitySet="test_profiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_abd8bbc56c" Association="Self.fk_rails_abd8bbc56c">
+            <End Role="test_section_questions" EntitySet="test_section_questions" />
+            <End Role="test_section_question_options" EntitySet="test_section_question_options" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ac06d29efb" Association="Self.fk_rails_ac06d29efb">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="test_appearance_pages" EntitySet="test_appearance_pages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ac54fc3ebe" Association="Self.fk_rails_ac54fc3ebe">
+            <End Role="application_users" EntitySet="application_users" />
+            <End Role="campaign_user_infos" EntitySet="campaign_user_infos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_acbc7b93ac" Association="Self.fk_rails_acbc7b93ac">
+            <End Role="test_competences" EntitySet="test_competences" />
+            <End Role="execution_competence_evaluations" EntitySet="execution_competence_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_b477624c14" Association="Self.fk_rails_b477624c14">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_competences" EntitySet="test_competences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ba0057cd13" Association="Self.fk_rails_ba0057cd13">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_evaluations" EntitySet="execution_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_baa1aeb43c" Association="Self.fk_rails_baa1aeb43c">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="test_appearance_sections" EntitySet="test_appearance_sections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_bd9e74de0c" Association="Self.fk_rails_bd9e74de0c">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="execution_competence_evaluations" EntitySet="execution_competence_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_d26d521767" Association="Self.fk_rails_d26d521767">
+            <End Role="test_sections" EntitySet="test_sections" />
+            <End Role="execution_steps" EntitySet="execution_steps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_d42b7e9b41" Association="Self.fk_rails_d42b7e9b41">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_competence_evaluations" EntitySet="execution_competence_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_db49421dbb" Association="Self.fk_rails_db49421dbb">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="minimo_english_test_data" EntitySet="minimo_english_test_data" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_dc4ecd8042" Association="Self.fk_rails_dc4ecd8042">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ec0272c90a" Association="Self.fk_rails_ec0272c90a">
+            <End Role="test_section_question_options" EntitySet="test_section_question_options" />
+            <End Role="execution_answers" EntitySet="execution_answers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ed7fd02d0b" Association="Self.fk_rails_ed7fd02d0b">
+            <End Role="application_users" EntitySet="application_users" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_f1c711dd82" Association="Self.fk_rails_f1c711dd82">
+            <End Role="test_competences" EntitySet="test_competences" />
+            <End Role="test_section_question_options" EntitySet="test_section_question_options" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_fac974b1a0" Association="Self.fk_rails_fac974b1a0">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_appearances" EntitySet="test_appearances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_fe7e07f9c8" Association="Self.fk_rails_fe7e07f9c8">
+            <End Role="test_sections" EntitySet="test_sections" />
+            <End Role="test_appearance_sections" EntitySet="test_appearance_sections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BetthaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="active_admin_comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="namespace" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="resource_id" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="resource_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="author_id" Type="Int32" />
+          <Property Name="author_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="6" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" />
+        </EntityType>
+        <EntityType Name="admin_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="encrypted_password" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="reset_password_token" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="reset_password_sent_at" Type="DateTime" Precision="6" />
+          <Property Name="remember_created_at" Type="DateTime" Precision="6" />
+          <Property Name="sign_in_count" Type="Int32" Nullable="false" />
+          <Property Name="current_sign_in_at" Type="DateTime" Precision="6" />
+          <Property Name="last_sign_in_at" Type="DateTime" Precision="6" />
+          <Property Name="current_sign_in_ip" Type="String" MaxLength="241" FixedLength="false" Unicode="true" />
+          <Property Name="last_sign_in_ip" Type="String" MaxLength="241" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="application_settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="application_id" Type="Int32" Nullable="false" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="source" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="expires_in" Type="Int16" />
+          <Property Name="max_retries" Type="Int16" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="applications" Relationship="Self.fk_rails_488cdcc7ee" FromRole="application_settings" ToRole="applications" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_813e4f0473" FromRole="application_settings" ToRole="tests" />
+        </EntityType>
+        <EntityType Name="application_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="application_id" Type="Int32" Nullable="false" />
+          <Property Name="external_id" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="applications" Relationship="Self.fk_rails_1bef5c552f" FromRole="application_users" ToRole="applications" />
+          <NavigationProperty Name="campaign_user_infos" Relationship="Self.fk_rails_ac54fc3ebe" FromRole="application_users" ToRole="campaign_user_infos" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_ed7fd02d0b" FromRole="application_users" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="applications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="secret" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="callback_url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="redirect_url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="share_url" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="adapter" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="send_result" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="application_settings" Relationship="Self.fk_rails_488cdcc7ee" FromRole="applications" ToRole="application_settings" />
+          <NavigationProperty Name="application_users" Relationship="Self.fk_rails_1bef5c552f" FromRole="applications" ToRole="application_users" />
+          <NavigationProperty Name="campaigns" Relationship="Self.fk_rails_52e00ddf60" FromRole="applications" ToRole="campaigns" />
+          <NavigationProperty Name="users" Relationship="Self.fk_rails_703c720730" FromRole="applications" ToRole="users" />
+        </EntityType>
+        <EntityType Name="campaign_test_appearances">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="campaign_id" Type="Int32" />
+          <Property Name="test_appearance_id" Type="Int32" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="email_content" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="test_appearances" Relationship="Self.fk_rails_4c19df1658" FromRole="campaign_test_appearances" ToRole="test_appearances" />
+          <NavigationProperty Name="campaigns" Relationship="Self.fk_rails_5b20ee6d48" FromRole="campaign_test_appearances" ToRole="campaigns" />
+        </EntityType>
+        <EntityType Name="campaign_user_infos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cpf" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="application_user_id" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="application_users" Relationship="Self.fk_rails_ac54fc3ebe" FromRole="campaign_user_infos" ToRole="application_users" />
+        </EntityType>
+        <EntityType Name="campaigns">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="slug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="application_id" Type="Int32" Nullable="false" />
+          <Property Name="client_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="finished" Type="Boolean" />
+          <Property Name="logo_file_name" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="logo_content_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_size" Type="Int32" />
+          <Property Name="logo_updated_at" Type="DateTime" Precision="6" />
+          <Property Name="color" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="number_of_resends" Type="Int32" Nullable="false" />
+          <Property Name="number_of_resets" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="applications" Relationship="Self.fk_rails_52e00ddf60" FromRole="campaigns" ToRole="applications" />
+          <NavigationProperty Name="campaign_test_appearances" Relationship="Self.fk_rails_5b20ee6d48" FromRole="campaigns" ToRole="campaign_test_appearances" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_18a6bf9ec9" FromRole="campaigns" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="captured_emails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execution_id" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_75605752ce" FromRole="captured_emails" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="evaluation_send_logs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execution_id" Type="Int32" Nullable="false" />
+          <Property Name="send_time" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_740feeb099" FromRole="evaluation_send_logs" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="execution_answers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execution_id" Type="Int32" Nullable="false" />
+          <Property Name="test_section_question_id" Type="Int32" Nullable="false" />
+          <Property Name="test_section_question_option_id" Type="Int32" Nullable="false" />
+          <Property Name="extra_score" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_3ae2d4da70" FromRole="execution_answers" ToRole="executions" />
+          <NavigationProperty Name="test_section_questions" Relationship="Self.fk_rails_855c29d156" FromRole="execution_answers" ToRole="test_section_questions" />
+          <NavigationProperty Name="test_section_question_options" Relationship="Self.fk_rails_ec0272c90a" FromRole="execution_answers" ToRole="test_section_question_options" />
+        </EntityType>
+        <EntityType Name="execution_competence_evaluations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execution_id" Type="Int32" Nullable="false" />
+          <Property Name="test_competence_id" Type="Int32" Nullable="false" />
+          <Property Name="test_profile_id" Type="Int32" />
+          <Property Name="score" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="test_competences" Relationship="Self.fk_rails_acbc7b93ac" FromRole="execution_competence_evaluations" ToRole="test_competences" />
+          <NavigationProperty Name="test_profiles" Relationship="Self.fk_rails_bd9e74de0c" FromRole="execution_competence_evaluations" ToRole="test_profiles" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_d42b7e9b41" FromRole="execution_competence_evaluations" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="execution_evaluations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execution_id" Type="Int32" Nullable="false" />
+          <Property Name="test_profile_id" Type="Int32" />
+          <Property Name="score" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="test_profiles" Relationship="Self.fk_rails_11c5e69489" FromRole="execution_evaluations" ToRole="test_profiles" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_ba0057cd13" FromRole="execution_evaluations" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="execution_steps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execution_id" Type="Int32" Nullable="false" />
+          <Property Name="test_section_id" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="Int16" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="spent_time" Type="Int32" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_189d49126b" FromRole="execution_steps" ToRole="executions" />
+          <NavigationProperty Name="test_sections" Relationship="Self.fk_rails_d26d521767" FromRole="execution_steps" ToRole="test_sections" />
+        </EntityType>
+        <EntityType Name="executions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="test_appearance_id" Type="Int32" Nullable="false" />
+          <Property Name="application_user_id" Type="Int32" Nullable="false" />
+          <Property Name="retries" Type="Int16" Nullable="false" />
+          <Property Name="token" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_time" Type="DateTime" Precision="6" />
+          <Property Name="finish_time" Type="DateTime" Precision="6" />
+          <Property Name="valid_until" Type="DateTime" Precision="6" />
+          <Property Name="discard_time" Type="DateTime" Precision="6" />
+          <Property Name="external" Type="Boolean" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="rating" Type="Int16" />
+          <Property Name="type" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="campaign_id" Type="Int32" />
+          <NavigationProperty Name="application_users" Relationship="Self.fk_rails_ed7fd02d0b" FromRole="executions" ToRole="application_users" />
+          <NavigationProperty Name="campaigns" Relationship="Self.fk_rails_18a6bf9ec9" FromRole="executions" ToRole="campaigns" />
+          <NavigationProperty Name="captured_emails" Relationship="Self.fk_rails_75605752ce" FromRole="executions" ToRole="captured_emails" />
+          <NavigationProperty Name="evaluation_send_logs" Relationship="Self.fk_rails_740feeb099" FromRole="executions" ToRole="evaluation_send_logs" />
+          <NavigationProperty Name="execution_answers" Relationship="Self.fk_rails_3ae2d4da70" FromRole="executions" ToRole="execution_answers" />
+          <NavigationProperty Name="execution_competence_evaluations" Relationship="Self.fk_rails_d42b7e9b41" FromRole="executions" ToRole="execution_competence_evaluations" />
+          <NavigationProperty Name="execution_evaluations" Relationship="Self.fk_rails_ba0057cd13" FromRole="executions" ToRole="execution_evaluations" />
+          <NavigationProperty Name="execution_steps" Relationship="Self.fk_rails_189d49126b" FromRole="executions" ToRole="execution_steps" />
+          <NavigationProperty Name="test_appearances" Relationship="Self.fk_rails_908987af28" FromRole="executions" ToRole="test_appearances" />
+          <NavigationProperty Name="minimo_english_test_data" Relationship="Self.fk_rails_db49421dbb" FromRole="executions" ToRole="minimo_english_test_data" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_dc4ecd8042" FromRole="executions" ToRole="tests" />
+        </EntityType>
+        <EntityType Name="media_elements">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="media_type" Type="Int32" />
+          <Property Name="mediable_id" Type="Int32" />
+          <Property Name="mediable_type" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="minimo_english_test_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="score" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="test_calibration_id" Type="Int32" Nullable="false" />
+          <Property Name="answer_pattern" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="execution_id" Type="Int32" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_db49421dbb" FromRole="minimo_english_test_data" ToRole="executions" />
+        </EntityType>
+        <EntityType Name="test_appearance_pages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_appearance_id" Type="Int32" Nullable="false" />
+          <Property Name="test_profile_id" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="test_profiles" Relationship="Self.fk_rails_7fdfbeb16a" FromRole="test_appearance_pages" ToRole="test_profiles" />
+          <NavigationProperty Name="test_appearances" Relationship="Self.fk_rails_ac06d29efb" FromRole="test_appearance_pages" ToRole="test_appearances" />
+        </EntityType>
+        <EntityType Name="test_appearances">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="campaign_test_appearances" Relationship="Self.fk_rails_4c19df1658" FromRole="test_appearances" ToRole="campaign_test_appearances" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_908987af28" FromRole="test_appearances" ToRole="executions" />
+          <NavigationProperty Name="test_appearance_pages" Relationship="Self.fk_rails_ac06d29efb" FromRole="test_appearances" ToRole="test_appearance_pages" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_fac974b1a0" FromRole="test_appearances" ToRole="tests" />
+          <NavigationProperty Name="test_sections" Relationship="Self.test_appearance_sections" FromRole="test_appearances" ToRole="test_sections" />
+        </EntityType>
+        <EntityType Name="test_competences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="extra_info" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="execution_competence_evaluations" Relationship="Self.fk_rails_acbc7b93ac" FromRole="test_competences" ToRole="execution_competence_evaluations" />
+          <NavigationProperty Name="test_sections" Relationship="Self.fk_rails_90a50dcd90" FromRole="test_competences" ToRole="test_sections" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_b477624c14" FromRole="test_competences" ToRole="tests" />
+          <NavigationProperty Name="test_section_question_options" Relationship="Self.fk_rails_f1c711dd82" FromRole="test_competences" ToRole="test_section_question_options" />
+        </EntityType>
+        <EntityType Name="test_levels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="answer_time" Type="Int16" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="test_sections" Relationship="Self.fk_rails_2eae88a83d" FromRole="test_levels" ToRole="test_sections" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_6005bc7cb3" FromRole="test_levels" ToRole="tests" />
+        </EntityType>
+        <EntityType Name="test_profile_ranges">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="test_profile_id" Type="Int32" Nullable="false" />
+          <Property Name="range_start" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="range_end" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_3f2d78c98f" FromRole="test_profile_ranges" ToRole="tests" />
+          <NavigationProperty Name="test_profiles" Relationship="Self.fk_rails_4142ad0580" FromRole="test_profile_ranges" ToRole="test_profiles" />
+        </EntityType>
+        <EntityType Name="test_profiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="execution_competence_evaluations" Relationship="Self.fk_rails_bd9e74de0c" FromRole="test_profiles" ToRole="execution_competence_evaluations" />
+          <NavigationProperty Name="execution_evaluations" Relationship="Self.fk_rails_11c5e69489" FromRole="test_profiles" ToRole="execution_evaluations" />
+          <NavigationProperty Name="test_appearance_pages" Relationship="Self.fk_rails_7fdfbeb16a" FromRole="test_profiles" ToRole="test_appearance_pages" />
+          <NavigationProperty Name="test_profile_ranges" Relationship="Self.fk_rails_4142ad0580" FromRole="test_profiles" ToRole="test_profile_ranges" />
+          <NavigationProperty Name="tests" Relationship="Self.fk_rails_9b1471e47f" FromRole="test_profiles" ToRole="tests" />
+        </EntityType>
+        <EntityType Name="test_section_question_options">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_section_question_id" Type="Int32" Nullable="false" />
+          <Property Name="test_competence_id" Type="Int32" />
+          <Property Name="content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="score" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="external_id" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="extra_content" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="execution_answers" Relationship="Self.fk_rails_ec0272c90a" FromRole="test_section_question_options" ToRole="execution_answers" />
+          <NavigationProperty Name="test_competences" Relationship="Self.fk_rails_f1c711dd82" FromRole="test_section_question_options" ToRole="test_competences" />
+          <NavigationProperty Name="test_section_questions" Relationship="Self.fk_rails_abd8bbc56c" FromRole="test_section_question_options" ToRole="test_section_questions" />
+        </EntityType>
+        <EntityType Name="test_section_questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_section_id" Type="Int32" Nullable="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="execution_answers" Relationship="Self.fk_rails_855c29d156" FromRole="test_section_questions" ToRole="execution_answers" />
+          <NavigationProperty Name="test_section_question_options" Relationship="Self.fk_rails_abd8bbc56c" FromRole="test_section_questions" ToRole="test_section_question_options" />
+          <NavigationProperty Name="test_sections" Relationship="Self.fk_rails_4b37ca3bdd" FromRole="test_section_questions" ToRole="test_sections" />
+        </EntityType>
+        <EntityType Name="test_section_types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="min" Type="Int16" />
+          <Property Name="max" Type="Int16" />
+          <NavigationProperty Name="test_sections" Relationship="Self.fk_rails_12646144e0" FromRole="test_section_types" ToRole="test_sections" />
+        </EntityType>
+        <EntityType Name="test_sections">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="test_level_id" Type="Int32" Nullable="false" />
+          <Property Name="test_section_type_id" Type="Int32" Nullable="false" />
+          <Property Name="test_competence_id" Type="Int32" />
+          <Property Name="position" Type="Int16" />
+          <Property Name="title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="important" Type="Boolean" Nullable="false" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="execution_steps" Relationship="Self.fk_rails_d26d521767" FromRole="test_sections" ToRole="execution_steps" />
+          <NavigationProperty Name="test_competences" Relationship="Self.fk_rails_90a50dcd90" FromRole="test_sections" ToRole="test_competences" />
+          <NavigationProperty Name="test_levels" Relationship="Self.fk_rails_2eae88a83d" FromRole="test_sections" ToRole="test_levels" />
+          <NavigationProperty Name="test_section_questions" Relationship="Self.fk_rails_4b37ca3bdd" FromRole="test_sections" ToRole="test_section_questions" />
+          <NavigationProperty Name="test_section_types" Relationship="Self.fk_rails_12646144e0" FromRole="test_sections" ToRole="test_section_types" />
+          <NavigationProperty Name="test_appearances" Relationship="Self.test_appearance_sections" FromRole="test_sections" ToRole="test_appearances" />
+        </EntityType>
+        <EntityType Name="tests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="expires_in" Type="Int16" />
+          <Property Name="max_retries" Type="Int16" />
+          <Property Name="answer_time" Type="Int16" />
+          <Property Name="deprecated" Type="Boolean" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="application_settings" Relationship="Self.fk_rails_813e4f0473" FromRole="tests" ToRole="application_settings" />
+          <NavigationProperty Name="executions" Relationship="Self.fk_rails_dc4ecd8042" FromRole="tests" ToRole="executions" />
+          <NavigationProperty Name="test_appearances" Relationship="Self.fk_rails_fac974b1a0" FromRole="tests" ToRole="test_appearances" />
+          <NavigationProperty Name="test_competences" Relationship="Self.fk_rails_b477624c14" FromRole="tests" ToRole="test_competences" />
+          <NavigationProperty Name="test_levels" Relationship="Self.fk_rails_6005bc7cb3" FromRole="tests" ToRole="test_levels" />
+          <NavigationProperty Name="test_profile_ranges" Relationship="Self.fk_rails_3f2d78c98f" FromRole="tests" ToRole="test_profile_ranges" />
+          <NavigationProperty Name="test_profiles" Relationship="Self.fk_rails_9b1471e47f" FromRole="tests" ToRole="test_profiles" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="encrypted_password" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="reset_password_token" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" />
+          <Property Name="reset_password_sent_at" Type="DateTime" Precision="6" />
+          <Property Name="remember_created_at" Type="DateTime" Precision="6" />
+          <Property Name="sign_in_count" Type="Int32" Nullable="false" />
+          <Property Name="current_sign_in_at" Type="DateTime" Precision="6" />
+          <Property Name="last_sign_in_at" Type="DateTime" Precision="6" />
+          <Property Name="current_sign_in_ip" Type="String" MaxLength="241" FixedLength="false" Unicode="true" />
+          <Property Name="last_sign_in_ip" Type="String" MaxLength="241" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="applications" Relationship="Self.fk_rails_703c720730" FromRole="users" ToRole="applications" />
+        </EntityType>
+        <EntityType Name="schema_migrations">
+          <Key>
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="version" Type="String" MaxLength="65535" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_rails_488cdcc7ee">
+          <End Role="applications" Type="Self.applications" Multiplicity="1" />
+          <End Role="application_settings" Type="Self.application_settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="applications">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="application_settings">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_813e4f0473">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="application_settings" Type="Self.application_settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="application_settings">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_1bef5c552f">
+          <End Role="applications" Type="Self.applications" Multiplicity="1" />
+          <End Role="application_users" Type="Self.application_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="applications">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="application_users">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ac54fc3ebe">
+          <End Role="application_users" Type="Self.application_users" Multiplicity="1" />
+          <End Role="campaign_user_infos" Type="Self.campaign_user_infos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="application_users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaign_user_infos">
+              <PropertyRef Name="application_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ed7fd02d0b">
+          <End Role="application_users" Type="Self.application_users" Multiplicity="1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="application_users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="application_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_52e00ddf60">
+          <End Role="applications" Type="Self.applications" Multiplicity="1" />
+          <End Role="campaigns" Type="Self.campaigns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="applications">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaigns">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_703c720730">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="applications" Type="Self.applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="applications">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_4c19df1658">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="0..1" />
+          <End Role="campaign_test_appearances" Type="Self.campaign_test_appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaign_test_appearances">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_5b20ee6d48">
+          <End Role="campaigns" Type="Self.campaigns" Multiplicity="0..1" />
+          <End Role="campaign_test_appearances" Type="Self.campaign_test_appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campaigns">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="campaign_test_appearances">
+              <PropertyRef Name="campaign_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_18a6bf9ec9">
+          <End Role="campaigns" Type="Self.campaigns" Multiplicity="0..1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campaigns">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="campaign_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_75605752ce">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="captured_emails" Type="Self.captured_emails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="captured_emails">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_740feeb099">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="evaluation_send_logs" Type="Self.evaluation_send_logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="evaluation_send_logs">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_3ae2d4da70">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_answers" Type="Self.execution_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_answers">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_855c29d156">
+          <End Role="test_section_questions" Type="Self.test_section_questions" Multiplicity="1" />
+          <End Role="execution_answers" Type="Self.execution_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_answers">
+              <PropertyRef Name="test_section_question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ec0272c90a">
+          <End Role="test_section_question_options" Type="Self.test_section_question_options" Multiplicity="1" />
+          <End Role="execution_answers" Type="Self.execution_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_question_options">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_answers">
+              <PropertyRef Name="test_section_question_option_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_acbc7b93ac">
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="1" />
+          <End Role="execution_competence_evaluations" Type="Self.execution_competence_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_competences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_competence_evaluations">
+              <PropertyRef Name="test_competence_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_bd9e74de0c">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="0..1" />
+          <End Role="execution_competence_evaluations" Type="Self.execution_competence_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_competence_evaluations">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_d42b7e9b41">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_competence_evaluations" Type="Self.execution_competence_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_competence_evaluations">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_11c5e69489">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="0..1" />
+          <End Role="execution_evaluations" Type="Self.execution_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_evaluations">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ba0057cd13">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_evaluations" Type="Self.execution_evaluations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_evaluations">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_189d49126b">
+          <End Role="executions" Type="Self.executions" Multiplicity="1" />
+          <End Role="execution_steps" Type="Self.execution_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_steps">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_d26d521767">
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="1" />
+          <End Role="execution_steps" Type="Self.execution_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_sections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="execution_steps">
+              <PropertyRef Name="test_section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_908987af28">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_db49421dbb">
+          <End Role="executions" Type="Self.executions" Multiplicity="0..1" />
+          <End Role="minimo_english_test_data" Type="Self.minimo_english_test_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="executions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="minimo_english_test_data">
+              <PropertyRef Name="execution_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_dc4ecd8042">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="executions" Type="Self.executions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="executions">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_7fdfbeb16a">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="0..1" />
+          <End Role="test_appearance_pages" Type="Self.test_appearance_pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearance_pages">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_ac06d29efb">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="1" />
+          <End Role="test_appearance_pages" Type="Self.test_appearance_pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_appearances">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearance_pages">
+              <PropertyRef Name="test_appearance_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_fac974b1a0">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_appearances">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_90a50dcd90">
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="0..1" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_competences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_sections">
+              <PropertyRef Name="test_competence_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_b477624c14">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_competences">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_f1c711dd82">
+          <End Role="test_competences" Type="Self.test_competences" Multiplicity="0..1" />
+          <End Role="test_section_question_options" Type="Self.test_section_question_options" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_competences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_section_question_options">
+              <PropertyRef Name="test_competence_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_2eae88a83d">
+          <End Role="test_levels" Type="Self.test_levels" Multiplicity="1" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_levels">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_sections">
+              <PropertyRef Name="test_level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_6005bc7cb3">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_levels" Type="Self.test_levels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_levels">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_3f2d78c98f">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_profile_ranges" Type="Self.test_profile_ranges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_profile_ranges">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_4142ad0580">
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="1" />
+          <End Role="test_profile_ranges" Type="Self.test_profile_ranges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_profiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_profile_ranges">
+              <PropertyRef Name="test_profile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_9b1471e47f">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="test_profiles" Type="Self.test_profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_profiles">
+              <PropertyRef Name="test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_abd8bbc56c">
+          <End Role="test_section_questions" Type="Self.test_section_questions" Multiplicity="1" />
+          <End Role="test_section_question_options" Type="Self.test_section_question_options" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_section_question_options">
+              <PropertyRef Name="test_section_question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_4b37ca3bdd">
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="1" />
+          <End Role="test_section_questions" Type="Self.test_section_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_sections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_section_questions">
+              <PropertyRef Name="test_section_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_rails_12646144e0">
+          <End Role="test_section_types" Type="Self.test_section_types" Multiplicity="1" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test_section_types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="test_sections">
+              <PropertyRef Name="test_section_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="test_appearance_sections">
+          <End Role="test_appearances" Type="Self.test_appearances" Multiplicity="*" />
+          <End Role="test_sections" Type="Self.test_sections" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BetthaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="active_admin_comments" EntityType="Self.active_admin_comments" />
+          <EntitySet Name="admin_users" EntityType="Self.admin_users" />
+          <EntitySet Name="application_settings" EntityType="Self.application_settings" />
+          <EntitySet Name="application_users" EntityType="Self.application_users" />
+          <EntitySet Name="applications" EntityType="Self.applications" />
+          <EntitySet Name="campaign_test_appearances" EntityType="Self.campaign_test_appearances" />
+          <EntitySet Name="campaign_user_infos" EntityType="Self.campaign_user_infos" />
+          <EntitySet Name="campaigns" EntityType="Self.campaigns" />
+          <EntitySet Name="captured_emails" EntityType="Self.captured_emails" />
+          <EntitySet Name="evaluation_send_logs" EntityType="Self.evaluation_send_logs" />
+          <EntitySet Name="execution_answers" EntityType="Self.execution_answers" />
+          <EntitySet Name="execution_competence_evaluations" EntityType="Self.execution_competence_evaluations" />
+          <EntitySet Name="execution_evaluations" EntityType="Self.execution_evaluations" />
+          <EntitySet Name="execution_steps" EntityType="Self.execution_steps" />
+          <EntitySet Name="executions" EntityType="Self.executions" />
+          <EntitySet Name="media_elements" EntityType="Self.media_elements" />
+          <EntitySet Name="minimo_english_test_data" EntityType="Self.minimo_english_test_data" />
+          <EntitySet Name="test_appearance_pages" EntityType="Self.test_appearance_pages" />
+          <EntitySet Name="test_appearances" EntityType="Self.test_appearances" />
+          <EntitySet Name="test_competences" EntityType="Self.test_competences" />
+          <EntitySet Name="test_levels" EntityType="Self.test_levels" />
+          <EntitySet Name="test_profile_ranges" EntityType="Self.test_profile_ranges" />
+          <EntitySet Name="test_profiles" EntityType="Self.test_profiles" />
+          <EntitySet Name="test_section_question_options" EntityType="Self.test_section_question_options" />
+          <EntitySet Name="test_section_questions" EntityType="Self.test_section_questions" />
+          <EntitySet Name="test_section_types" EntityType="Self.test_section_types" />
+          <EntitySet Name="test_sections" EntityType="Self.test_sections" />
+          <EntitySet Name="tests" EntityType="Self.tests" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="schema_migrations" EntityType="Self.schema_migrations" />
+          <AssociationSet Name="fk_rails_488cdcc7ee" Association="Self.fk_rails_488cdcc7ee">
+            <End Role="applications" EntitySet="applications" />
+            <End Role="application_settings" EntitySet="application_settings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_813e4f0473" Association="Self.fk_rails_813e4f0473">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="application_settings" EntitySet="application_settings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_1bef5c552f" Association="Self.fk_rails_1bef5c552f">
+            <End Role="applications" EntitySet="applications" />
+            <End Role="application_users" EntitySet="application_users" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ac54fc3ebe" Association="Self.fk_rails_ac54fc3ebe">
+            <End Role="application_users" EntitySet="application_users" />
+            <End Role="campaign_user_infos" EntitySet="campaign_user_infos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ed7fd02d0b" Association="Self.fk_rails_ed7fd02d0b">
+            <End Role="application_users" EntitySet="application_users" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_52e00ddf60" Association="Self.fk_rails_52e00ddf60">
+            <End Role="applications" EntitySet="applications" />
+            <End Role="campaigns" EntitySet="campaigns" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_703c720730" Association="Self.fk_rails_703c720730">
+            <End Role="users" EntitySet="users" />
+            <End Role="applications" EntitySet="applications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_4c19df1658" Association="Self.fk_rails_4c19df1658">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="campaign_test_appearances" EntitySet="campaign_test_appearances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_5b20ee6d48" Association="Self.fk_rails_5b20ee6d48">
+            <End Role="campaigns" EntitySet="campaigns" />
+            <End Role="campaign_test_appearances" EntitySet="campaign_test_appearances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_18a6bf9ec9" Association="Self.fk_rails_18a6bf9ec9">
+            <End Role="campaigns" EntitySet="campaigns" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_75605752ce" Association="Self.fk_rails_75605752ce">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="captured_emails" EntitySet="captured_emails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_740feeb099" Association="Self.fk_rails_740feeb099">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="evaluation_send_logs" EntitySet="evaluation_send_logs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_3ae2d4da70" Association="Self.fk_rails_3ae2d4da70">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_answers" EntitySet="execution_answers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_855c29d156" Association="Self.fk_rails_855c29d156">
+            <End Role="test_section_questions" EntitySet="test_section_questions" />
+            <End Role="execution_answers" EntitySet="execution_answers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ec0272c90a" Association="Self.fk_rails_ec0272c90a">
+            <End Role="test_section_question_options" EntitySet="test_section_question_options" />
+            <End Role="execution_answers" EntitySet="execution_answers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_acbc7b93ac" Association="Self.fk_rails_acbc7b93ac">
+            <End Role="test_competences" EntitySet="test_competences" />
+            <End Role="execution_competence_evaluations" EntitySet="execution_competence_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_bd9e74de0c" Association="Self.fk_rails_bd9e74de0c">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="execution_competence_evaluations" EntitySet="execution_competence_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_d42b7e9b41" Association="Self.fk_rails_d42b7e9b41">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_competence_evaluations" EntitySet="execution_competence_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_11c5e69489" Association="Self.fk_rails_11c5e69489">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="execution_evaluations" EntitySet="execution_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ba0057cd13" Association="Self.fk_rails_ba0057cd13">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_evaluations" EntitySet="execution_evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_189d49126b" Association="Self.fk_rails_189d49126b">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="execution_steps" EntitySet="execution_steps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_d26d521767" Association="Self.fk_rails_d26d521767">
+            <End Role="test_sections" EntitySet="test_sections" />
+            <End Role="execution_steps" EntitySet="execution_steps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_908987af28" Association="Self.fk_rails_908987af28">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_db49421dbb" Association="Self.fk_rails_db49421dbb">
+            <End Role="executions" EntitySet="executions" />
+            <End Role="minimo_english_test_data" EntitySet="minimo_english_test_data" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_dc4ecd8042" Association="Self.fk_rails_dc4ecd8042">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="executions" EntitySet="executions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_7fdfbeb16a" Association="Self.fk_rails_7fdfbeb16a">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="test_appearance_pages" EntitySet="test_appearance_pages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_ac06d29efb" Association="Self.fk_rails_ac06d29efb">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="test_appearance_pages" EntitySet="test_appearance_pages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_fac974b1a0" Association="Self.fk_rails_fac974b1a0">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_appearances" EntitySet="test_appearances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_90a50dcd90" Association="Self.fk_rails_90a50dcd90">
+            <End Role="test_competences" EntitySet="test_competences" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_b477624c14" Association="Self.fk_rails_b477624c14">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_competences" EntitySet="test_competences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_f1c711dd82" Association="Self.fk_rails_f1c711dd82">
+            <End Role="test_competences" EntitySet="test_competences" />
+            <End Role="test_section_question_options" EntitySet="test_section_question_options" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_2eae88a83d" Association="Self.fk_rails_2eae88a83d">
+            <End Role="test_levels" EntitySet="test_levels" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_6005bc7cb3" Association="Self.fk_rails_6005bc7cb3">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_levels" EntitySet="test_levels" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_3f2d78c98f" Association="Self.fk_rails_3f2d78c98f">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_profile_ranges" EntitySet="test_profile_ranges" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_4142ad0580" Association="Self.fk_rails_4142ad0580">
+            <End Role="test_profiles" EntitySet="test_profiles" />
+            <End Role="test_profile_ranges" EntitySet="test_profile_ranges" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_9b1471e47f" Association="Self.fk_rails_9b1471e47f">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="test_profiles" EntitySet="test_profiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_abd8bbc56c" Association="Self.fk_rails_abd8bbc56c">
+            <End Role="test_section_questions" EntitySet="test_section_questions" />
+            <End Role="test_section_question_options" EntitySet="test_section_question_options" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_4b37ca3bdd" Association="Self.fk_rails_4b37ca3bdd">
+            <End Role="test_sections" EntitySet="test_sections" />
+            <End Role="test_section_questions" EntitySet="test_section_questions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_rails_12646144e0" Association="Self.fk_rails_12646144e0">
+            <End Role="test_section_types" EntitySet="test_section_types" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+          <AssociationSet Name="test_appearance_sections" Association="Self.test_appearance_sections">
+            <End Role="test_appearances" EntitySet="test_appearances" />
+            <End Role="test_sections" EntitySet="test_sections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BetthaModelStoreContainer" CdmEntityContainer="BetthaEntities">
+          <EntitySetMapping Name="active_admin_comments">
+            <EntityTypeMapping TypeName="BetthaModel.active_admin_comments">
+              <MappingFragment StoreEntitySet="active_admin_comments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="namespace" ColumnName="namespace" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="resource_id" ColumnName="resource_id" />
+                <ScalarProperty Name="resource_type" ColumnName="resource_type" />
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="author_type" ColumnName="author_type" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admin_users">
+            <EntityTypeMapping TypeName="BetthaModel.admin_users">
+              <MappingFragment StoreEntitySet="admin_users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="encrypted_password" ColumnName="encrypted_password" />
+                <ScalarProperty Name="reset_password_token" ColumnName="reset_password_token" />
+                <ScalarProperty Name="reset_password_sent_at" ColumnName="reset_password_sent_at" />
+                <ScalarProperty Name="remember_created_at" ColumnName="remember_created_at" />
+                <ScalarProperty Name="sign_in_count" ColumnName="sign_in_count" />
+                <ScalarProperty Name="current_sign_in_at" ColumnName="current_sign_in_at" />
+                <ScalarProperty Name="last_sign_in_at" ColumnName="last_sign_in_at" />
+                <ScalarProperty Name="current_sign_in_ip" ColumnName="current_sign_in_ip" />
+                <ScalarProperty Name="last_sign_in_ip" ColumnName="last_sign_in_ip" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="application_settings">
+            <EntityTypeMapping TypeName="BetthaModel.application_settings">
+              <MappingFragment StoreEntitySet="application_settings">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="application_id" ColumnName="application_id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="expires_in" ColumnName="expires_in" />
+                <ScalarProperty Name="max_retries" ColumnName="max_retries" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="application_users">
+            <EntityTypeMapping TypeName="BetthaModel.application_users">
+              <MappingFragment StoreEntitySet="application_users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="application_id" ColumnName="application_id" />
+                <ScalarProperty Name="external_id" ColumnName="external_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="applications">
+            <EntityTypeMapping TypeName="BetthaModel.applications">
+              <MappingFragment StoreEntitySet="applications">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="secret" ColumnName="secret" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="callback_url" ColumnName="callback_url" />
+                <ScalarProperty Name="redirect_url" ColumnName="redirect_url" />
+                <ScalarProperty Name="share_url" ColumnName="share_url" />
+                <ScalarProperty Name="adapter" ColumnName="adapter" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="send_result" ColumnName="send_result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="campaign_test_appearances">
+            <EntityTypeMapping TypeName="BetthaModel.campaign_test_appearances">
+              <MappingFragment StoreEntitySet="campaign_test_appearances">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="campaign_id" ColumnName="campaign_id" />
+                <ScalarProperty Name="test_appearance_id" ColumnName="test_appearance_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="email_content" ColumnName="email_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="campaign_user_infos">
+            <EntityTypeMapping TypeName="BetthaModel.campaign_user_infos">
+              <MappingFragment StoreEntitySet="campaign_user_infos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="application_user_id" ColumnName="application_user_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="campaigns">
+            <EntityTypeMapping TypeName="BetthaModel.campaigns">
+              <MappingFragment StoreEntitySet="campaigns">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="application_id" ColumnName="application_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="finished" ColumnName="finished" />
+                <ScalarProperty Name="logo_file_name" ColumnName="logo_file_name" />
+                <ScalarProperty Name="logo_content_type" ColumnName="logo_content_type" />
+                <ScalarProperty Name="logo_file_size" ColumnName="logo_file_size" />
+                <ScalarProperty Name="logo_updated_at" ColumnName="logo_updated_at" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="number_of_resends" ColumnName="number_of_resends" />
+                <ScalarProperty Name="number_of_resets" ColumnName="number_of_resets" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="captured_emails">
+            <EntityTypeMapping TypeName="BetthaModel.captured_emails">
+              <MappingFragment StoreEntitySet="captured_emails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="evaluation_send_logs">
+            <EntityTypeMapping TypeName="BetthaModel.evaluation_send_logs">
+              <MappingFragment StoreEntitySet="evaluation_send_logs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="send_time" ColumnName="send_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="execution_answers">
+            <EntityTypeMapping TypeName="BetthaModel.execution_answers">
+              <MappingFragment StoreEntitySet="execution_answers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="test_section_question_id" ColumnName="test_section_question_id" />
+                <ScalarProperty Name="test_section_question_option_id" ColumnName="test_section_question_option_id" />
+                <ScalarProperty Name="extra_score" ColumnName="extra_score" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="execution_competence_evaluations">
+            <EntityTypeMapping TypeName="BetthaModel.execution_competence_evaluations">
+              <MappingFragment StoreEntitySet="execution_competence_evaluations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="test_competence_id" ColumnName="test_competence_id" />
+                <ScalarProperty Name="test_profile_id" ColumnName="test_profile_id" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="execution_evaluations">
+            <EntityTypeMapping TypeName="BetthaModel.execution_evaluations">
+              <MappingFragment StoreEntitySet="execution_evaluations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="test_profile_id" ColumnName="test_profile_id" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="execution_steps">
+            <EntityTypeMapping TypeName="BetthaModel.execution_steps">
+              <MappingFragment StoreEntitySet="execution_steps">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="test_section_id" ColumnName="test_section_id" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="spent_time" ColumnName="spent_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="executions">
+            <EntityTypeMapping TypeName="BetthaModel.executions">
+              <MappingFragment StoreEntitySet="executions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="test_appearance_id" ColumnName="test_appearance_id" />
+                <ScalarProperty Name="application_user_id" ColumnName="application_user_id" />
+                <ScalarProperty Name="retries" ColumnName="retries" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="finish_time" ColumnName="finish_time" />
+                <ScalarProperty Name="valid_until" ColumnName="valid_until" />
+                <ScalarProperty Name="discard_time" ColumnName="discard_time" />
+                <ScalarProperty Name="external" ColumnName="external" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="campaign_id" ColumnName="campaign_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="media_elements">
+            <EntityTypeMapping TypeName="BetthaModel.media_elements">
+              <MappingFragment StoreEntitySet="media_elements">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="media_type" ColumnName="media_type" />
+                <ScalarProperty Name="mediable_id" ColumnName="mediable_id" />
+                <ScalarProperty Name="mediable_type" ColumnName="mediable_type" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="minimo_english_test_data">
+            <EntityTypeMapping TypeName="BetthaModel.minimo_english_test_data">
+              <MappingFragment StoreEntitySet="minimo_english_test_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="test_calibration_id" ColumnName="test_calibration_id" />
+                <ScalarProperty Name="answer_pattern" ColumnName="answer_pattern" />
+                <ScalarProperty Name="execution_id" ColumnName="execution_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_appearance_pages">
+            <EntityTypeMapping TypeName="BetthaModel.test_appearance_pages">
+              <MappingFragment StoreEntitySet="test_appearance_pages">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_appearance_id" ColumnName="test_appearance_id" />
+                <ScalarProperty Name="test_profile_id" ColumnName="test_profile_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_appearances">
+            <EntityTypeMapping TypeName="BetthaModel.test_appearances">
+              <MappingFragment StoreEntitySet="test_appearances">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="key" ColumnName="key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_competences">
+            <EntityTypeMapping TypeName="BetthaModel.test_competences">
+              <MappingFragment StoreEntitySet="test_competences">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="extra_info" ColumnName="extra_info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_levels">
+            <EntityTypeMapping TypeName="BetthaModel.test_levels">
+              <MappingFragment StoreEntitySet="test_levels">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="answer_time" ColumnName="answer_time" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_profile_ranges">
+            <EntityTypeMapping TypeName="BetthaModel.test_profile_ranges">
+              <MappingFragment StoreEntitySet="test_profile_ranges">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="test_profile_id" ColumnName="test_profile_id" />
+                <ScalarProperty Name="range_start" ColumnName="range_start" />
+                <ScalarProperty Name="range_end" ColumnName="range_end" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_profiles">
+            <EntityTypeMapping TypeName="BetthaModel.test_profiles">
+              <MappingFragment StoreEntitySet="test_profiles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="key" ColumnName="key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_section_question_options">
+            <EntityTypeMapping TypeName="BetthaModel.test_section_question_options">
+              <MappingFragment StoreEntitySet="test_section_question_options">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_section_question_id" ColumnName="test_section_question_id" />
+                <ScalarProperty Name="test_competence_id" ColumnName="test_competence_id" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="external_id" ColumnName="external_id" />
+                <ScalarProperty Name="extra_content" ColumnName="extra_content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_section_questions">
+            <EntityTypeMapping TypeName="BetthaModel.test_section_questions">
+              <MappingFragment StoreEntitySet="test_section_questions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_section_id" ColumnName="test_section_id" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_section_types">
+            <EntityTypeMapping TypeName="BetthaModel.test_section_types">
+              <MappingFragment StoreEntitySet="test_section_types">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="max" ColumnName="max" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test_sections">
+            <EntityTypeMapping TypeName="BetthaModel.test_sections">
+              <MappingFragment StoreEntitySet="test_sections">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="test_level_id" ColumnName="test_level_id" />
+                <ScalarProperty Name="test_section_type_id" ColumnName="test_section_type_id" />
+                <ScalarProperty Name="test_competence_id" ColumnName="test_competence_id" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="important" ColumnName="important" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tests">
+            <EntityTypeMapping TypeName="BetthaModel.tests">
+              <MappingFragment StoreEntitySet="tests">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="expires_in" ColumnName="expires_in" />
+                <ScalarProperty Name="max_retries" ColumnName="max_retries" />
+                <ScalarProperty Name="answer_time" ColumnName="answer_time" />
+                <ScalarProperty Name="deprecated" ColumnName="deprecated" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="key" ColumnName="key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="BetthaModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="encrypted_password" ColumnName="encrypted_password" />
+                <ScalarProperty Name="reset_password_token" ColumnName="reset_password_token" />
+                <ScalarProperty Name="reset_password_sent_at" ColumnName="reset_password_sent_at" />
+                <ScalarProperty Name="remember_created_at" ColumnName="remember_created_at" />
+                <ScalarProperty Name="sign_in_count" ColumnName="sign_in_count" />
+                <ScalarProperty Name="current_sign_in_at" ColumnName="current_sign_in_at" />
+                <ScalarProperty Name="last_sign_in_at" ColumnName="last_sign_in_at" />
+                <ScalarProperty Name="current_sign_in_ip" ColumnName="current_sign_in_ip" />
+                <ScalarProperty Name="last_sign_in_ip" ColumnName="last_sign_in_ip" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schema_migrations">
+            <EntityTypeMapping TypeName="BetthaModel.schema_migrations">
+              <MappingFragment StoreEntitySet="schema_migrations">
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="test_appearance_sections" TypeName="BetthaModel.test_appearance_sections" StoreEntitySet="test_appearance_sections">
+            <EndProperty Name="test_appearances">
+              <ScalarProperty Name="id" ColumnName="test_appearance_id" />
+            </EndProperty>
+            <EndProperty Name="test_sections">
+              <ScalarProperty Name="id" ColumnName="test_section_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

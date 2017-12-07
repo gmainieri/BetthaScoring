@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a8650f5d4df452ead09b6d64ff480c9" Name="Diagram1">
+        <EntityTypeShape EntityType="BetthaModel.active_admin_comments" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.admin_users" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.application_settings" Width="1.5" PointX="3" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.application_users" Width="1.5" PointX="3" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.applications" Width="1.5" PointX="0.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.campaign_test_appearances" Width="1.5" PointX="5.25" PointY="39.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.campaign_user_infos" Width="1.5" PointX="5.25" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.campaigns" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.captured_emails" Width="1.5" PointX="7.5" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.evaluation_send_logs" Width="1.5" PointX="7.5" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.execution_answers" Width="1.5" PointX="12.75" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.execution_competence_evaluations" Width="1.5" PointX="10.5" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.execution_evaluations" Width="1.5" PointX="10.5" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.execution_steps" Width="1.5" PointX="10.5" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.executions" Width="1.5" PointX="5.25" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.media_elements" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.minimo_english_test_data" Width="1.5" PointX="7.5" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_appearance_pages" Width="1.5" PointX="5.25" PointY="44.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_appearances" Width="1.5" PointX="3" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_competences" Width="1.5" PointX="3" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_levels" Width="1.5" PointX="3" PointY="44.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_profile_ranges" Width="1.5" PointX="8.25" PointY="45.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_profiles" Width="1.5" PointX="3" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_section_question_options" Width="1.5" PointX="12.75" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_section_questions" Width="1.5" PointX="10.5" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_section_types" Width="1.5" PointX="6" PointY="54.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.test_sections" Width="1.5" PointX="8.25" PointY="40" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.tests" Width="1.5" PointX="0.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.users" Width="1.5" PointX="1.5" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetthaModel.schema_migrations" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="BetthaModel.fk_rails_488cdcc7ee" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_813e4f0473" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_1bef5c552f" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_ac54fc3ebe" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_ed7fd02d0b" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_52e00ddf60" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_703c720730" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_4c19df1658" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_5b20ee6d48" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_18a6bf9ec9" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_75605752ce" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_740feeb099" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_3ae2d4da70" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_855c29d156" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_ec0272c90a" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_acbc7b93ac" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_bd9e74de0c" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_d42b7e9b41" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_11c5e69489" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_ba0057cd13" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_189d49126b" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_d26d521767" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_908987af28" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_db49421dbb" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_dc4ecd8042" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_7fdfbeb16a" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_ac06d29efb" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_fac974b1a0" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_90a50dcd90" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_b477624c14" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_f1c711dd82" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_2eae88a83d" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_6005bc7cb3" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_3f2d78c98f" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_4142ad0580" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_9b1471e47f" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_abd8bbc56c" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_4b37ca3bdd" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.fk_rails_12646144e0" ManuallyRouted="false" />
+        <AssociationConnector Association="BetthaModel.test_appearance_sections" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
