@@ -21,7 +21,7 @@ namespace Bettha_Scoring.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("BetthaEntities", throwIfV1Schema: false)
         {
         }
 
