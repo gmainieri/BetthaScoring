@@ -26,6 +26,7 @@ namespace Bettha_Scoring.Models
         }
 
         public DbSet<tests> Tests { get; set; }
+        public DbSet<application_users> Usuarios { get; set; }
         //public DbSet<Partida> Partidas { get; set; }
         //public DbSet<Chegada> Chegadas { get; set; }
         //public DbSet<Linha> Linhas { get; set; }

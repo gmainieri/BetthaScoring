@@ -11,6 +11,7 @@ namespace Bettha_Scoring.Models
 {
     using System;
     using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class application_users
     {
@@ -32,5 +33,8 @@ namespace Bettha_Scoring.Models
         public virtual ICollection<campaign_user_infos> campaign_user_infos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<executions> executions { get; set; }
+
+        [NotMapped]
+        public int[] arrayCaract;
     }
 }
