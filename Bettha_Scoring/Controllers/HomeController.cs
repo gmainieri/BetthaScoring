@@ -30,10 +30,6 @@ namespace Bettha_Scoring.Controllers
 
             var db = new ApplicationDbContext();
             
-            StreamWriter saida1 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file1.txt", false);
-            StreamWriter saida2 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file2.txt", false);
-            StreamWriter saida3 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file3.txt", false);
-            
             var allUsers = db.Usuarios.Where(x => x.executions.Any()).ToList();
 
             #region seis respostas superfit from db to arrays
@@ -57,7 +53,6 @@ namespace Bettha_Scoring.Controllers
 
             var candidatos = new List<application_users>();
             var empresas = new List<application_users>();
-            var linhas = new List<string>(50000);
 
             #region separa candidatos de empresas
             foreach (var usr in allUsers.Where(x => x.arrayCaract != null).ToList())
@@ -70,43 +65,38 @@ namespace Bettha_Scoring.Controllers
             #endregion
 
             #region calcula os matches entre candidatos e empresas
+            StreamWriter saida1 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file1.txt", false);
             foreach (var cand in candidatos)
                 foreach (var empresa in empresas)
                 {
                     int score = this.calculaScore(cand.arrayCaract, empresa.arrayCaract);
 
-                    linhas.Add(String.Join(";", cand.id, empresa.id, score));
-
+                    saida1.WriteLine(String.Join(";", cand.id, empresa.id, score));
                 }
-            saida1.WriteLine(String.Join("\n", linhas));
             saida1.Close();
             #endregion
 
             #region calcula os matches entre candidatos e possiveis combinacoes
-            linhas.Clear();
+            StreamWriter saida2 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file2.txt", false);
             foreach (var cand in candidatos)
                 foreach (var possivel in posiveisRespostas)
                 {
                     int score = this.calculaScore(cand.arrayCaract, possivel);
 
-                    linhas.Add(String.Join(";", cand.id, String.Join(";", possivel), score));
-
+                    saida2.WriteLine(String.Join(";", cand.id, String.Join(";", possivel), score));
                 }
-            saida2.WriteLine(String.Join("\n", linhas));
             saida2.Close();
             #endregion
 
             #region calcula todos matches possiveis
-            linhas.Clear();
+            StreamWriter saida3 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file3.txt", false);
             foreach (var possivel1 in posiveisRespostas)
                 foreach (var possivel2 in posiveisRespostas)
                 {
                     int score = this.calculaScore(possivel1, possivel2);
 
-                    linhas.Add(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
-
+                    saida3.WriteLine(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
                 }
-            saida3.WriteLine(String.Join("\n", linhas));
             saida3.Close();
             #endregion
 
@@ -120,14 +110,20 @@ namespace Bettha_Scoring.Controllers
             //regras 1 e 2
             if (arrayCand[0] == arrayEmpresa[0])
                 score += 10;
+            else
+                score += 0;
 
             //regras 3 e 4
             if (arrayCand[1] == arrayEmpresa[1])
                 score += 10;
+            else
+                score += 0;
 
             //regras 5 e 6
-            if (arrayCand[2] == arrayEmpresa[2])
+            if (arrayCand[5] == arrayEmpresa[5])
                 score += 10;
+            else
+                score += 0;
 
             //regra 7
             if (arrayCand[0] == arrayEmpresa[1])
