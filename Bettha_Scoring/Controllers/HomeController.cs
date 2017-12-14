@@ -1,8 +1,10 @@
 ﻿using Bettha_Scoring.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace Bettha_Scoring.Controllers
@@ -27,6 +29,11 @@ namespace Bettha_Scoring.Controllers
             #endregion
 
             var db = new ApplicationDbContext();
+            
+            StreamWriter saida1 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file1.txt", false);
+            StreamWriter saida2 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file2.txt", false);
+            StreamWriter saida3 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file3.txt", false);
+            
             var allUsers = db.Usuarios.Where(x => x.executions.Any()).ToList();
 
             #region seis respostas superfit from db to arrays
@@ -50,8 +57,7 @@ namespace Bettha_Scoring.Controllers
 
             var candidatos = new List<application_users>();
             var empresas = new List<application_users>();
-            var linha = new List<string>(50000);
-
+            var linhas = new List<string>(50000);
 
             #region separa candidatos de empresas
             foreach (var usr in allUsers.Where(x => x.arrayCaract != null).ToList())
@@ -69,36 +75,39 @@ namespace Bettha_Scoring.Controllers
                 {
                     int score = this.calculaScore(cand.arrayCaract, empresa.arrayCaract);
 
-                    linha.Add(String.Join(";", cand.id, empresa.id, score));
+                    linhas.Add(String.Join(";", cand.id, empresa.id, score));
 
                 }
-            var merged1 = String.Join("\n", linha);
+            saida1.WriteLine(String.Join("\n", linhas));
+            saida1.Close();
             #endregion
 
             #region calcula os matches entre candidatos e possiveis combinacoes
-            linha.Clear();
+            linhas.Clear();
             foreach (var cand in candidatos)
                 foreach (var possivel in posiveisRespostas)
                 {
                     int score = this.calculaScore(cand.arrayCaract, possivel);
 
-                    linha.Add(String.Join(";", cand.id, String.Join(";", possivel), score));
+                    linhas.Add(String.Join(";", cand.id, String.Join(";", possivel), score));
 
                 }
-            var merged2 = String.Join("\n", linha);
+            saida2.WriteLine(String.Join("\n", linhas));
+            saida2.Close();
             #endregion
 
             #region calcula todos matches possiveis
-            linha.Clear();
+            linhas.Clear();
             foreach (var possivel1 in posiveisRespostas)
                 foreach (var possivel2 in posiveisRespostas)
                 {
                     int score = this.calculaScore(possivel1, possivel2);
 
-                    linha.Add(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
+                    linhas.Add(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
 
                 }
-            var merged3 = String.Join("\n", linha);
+            saida3.WriteLine(String.Join("\n", linhas));
+            saida3.Close();
             #endregion
 
             return View();
