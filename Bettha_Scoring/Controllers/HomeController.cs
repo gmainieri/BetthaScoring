@@ -35,7 +35,9 @@ namespace Bettha_Scoring.Controllers
             #region seis respostas superfit from db to arrays
             foreach (var user in allUsers)
             {
-                var exec = user.executions.OrderBy(x => x.id).Last();
+                var exec = user.executions.Count > 1 ? 
+                    user.executions.OrderByDescending(x => x.id).First() : 
+                    user.executions.First();
 
                 var caracteristicas = exec.execution_competence_evaluations.Where(x => idsSuperfit.Contains(x.test_competences.id)).ToList();
 
@@ -83,6 +85,9 @@ namespace Bettha_Scoring.Controllers
                 {
                     int score = this.calculaScore(cand.arrayCaract, possivel);
 
+                    if (score < 30)
+                        continue;
+
                     saida2.WriteLine(String.Join(";", cand.id, String.Join(";", possivel), score));
                 }
             saida2.Close();
@@ -98,6 +103,18 @@ namespace Bettha_Scoring.Controllers
                     saida3.WriteLine(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
                 }
             saida3.Close();
+            #endregion
+
+            #region calcula todos matches entre possiveis respostas e empresas
+            //StreamWriter saida4 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file4.txt", false);
+            //foreach (var cand in posiveisRespostas)
+            //    foreach (var empresa in empresas)
+            //    {
+            //        int score = this.calculaScore(cand, empresa.arrayCaract);
+
+            //        saida4.WriteLine(String.Join(";", String.Join(";", cand), empresa.id, score));
+            //    }
+            //saida4.Close();
             #endregion
 
             return View();
