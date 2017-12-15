@@ -1,5 +1,7 @@
 ﻿using Bettha_Scoring.Models;
 using System;
+using System.Data;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,9 +31,11 @@ namespace Bettha_Scoring.Controllers
             #endregion
 
             var db = new ApplicationDbContext();
-            
-            var allUsers = db.Usuarios.Where(x => x.executions.Any()).ToList();
 
+            db.Configuration.AutoDetectChangesEnabled = false;
+
+            var allUsers = db.Usuarios.Where(x => x.executions.Any()).Include(x => x.executions).ToList();
+            
             #region seis respostas superfit from db to arrays
             foreach (var user in allUsers)
             {
