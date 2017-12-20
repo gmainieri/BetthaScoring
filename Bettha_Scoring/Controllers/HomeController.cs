@@ -127,48 +127,50 @@ namespace Bettha_Scoring.Controllers
         public int calculaScore (int[] arrayCand, int[] arrayEmpresa)
         {
             int score = 0;
+            int min = 8;    //minima concordancia/discordancia
+            int max = 10;   //maxima concordancia/discordancia
 
             //regras 1 e 2
             if (arrayCand[0] == arrayEmpresa[0])
-                score += 10;
+                score += max;
             else
                 score += 0;
 
             //regras 3 e 4
             if (arrayCand[1] == arrayEmpresa[1])
-                score += 10;
+                score += max;
             else
                 score += 0;
 
             //regras 5 e 6
             if (arrayCand[5] == arrayEmpresa[5])
-                score += 10;
+                score += max;
             else
                 score += 0;
 
             //regra 7
             if (arrayCand[0] == arrayEmpresa[1])
-                score += 8;
+                score += min;
 
             //regra 8
             if (arrayCand[1] == arrayEmpresa[0])
-                score += 8;
+                score += min;
 
             //regra 9
             if (arrayCand[5] == arrayEmpresa[0])
-                score -= 10;
+                score -= max;
 
             //regra 10
             if (arrayCand[5] == arrayEmpresa[1])
-                score -= 8;
+                score -= min;
 
             //regra 11
             if (arrayCand[0] == arrayEmpresa[5])
-                score -= 10;
+                score -= max;
 
             //regra 12
             if (arrayCand[1] == arrayEmpresa[5])
-                score -= 8;
+                score -= min;
 
             return score;
 
