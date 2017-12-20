@@ -48,7 +48,8 @@ namespace Bettha_Scoring.Controllers
                 if (caracteristicas.Count != 6)
                     continue;
 
-                user.arrayCaract = caracteristicas.OrderBy(x => x.score).Select(x => x.test_competence_id).ToArray();
+                user.arrayCaract = caracteristicas.OrderByDescending(x => x.score).Select(x => x.test_competence_id).ToArray();
+                user.scoresTeste = caracteristicas.Select(x => Convert.ToDouble(x.score)).ToArray();
 
                 //externals.Add(user.id.ToString() + ";" + exec.external.ToString());
 
@@ -70,20 +71,32 @@ namespace Bettha_Scoring.Controllers
             } 
             #endregion
 
+            #region calcula os matches (em dist) entre candidatos e empresas
+            StreamWriter swDist = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "distanciasReais.txt", false);
+            foreach (var cand in candidatos)
+                foreach (var empresa in empresas)
+                {
+                    var dist = this.calculaDistanciaEuc(cand.scoresTeste, empresa.scoresTeste);
+
+                    swDist.WriteLine(String.Join(";", cand.id, empresa.id, dist.ToString("F2")));
+                }
+            swDist.Close();
+            #endregion
+
             #region calcula os matches entre candidatos e empresas
-            StreamWriter saida1 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file1.txt", false);
+            StreamWriter matchReal = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "MatchReal.txt", false);
             foreach (var cand in candidatos)
                 foreach (var empresa in empresas)
                 {
                     int score = this.calculaScore(cand.arrayCaract, empresa.arrayCaract);
 
-                    saida1.WriteLine(String.Join(";", cand.id, empresa.id, score));
+                    matchReal.WriteLine(String.Join(";", cand.id, empresa.id, score));
                 }
-            saida1.Close();
+            matchReal.Close();
             #endregion
 
             #region calcula os matches entre candidatos e possiveis combinacoes
-            StreamWriter saida2 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file2.txt", false);
+            StreamWriter saida2 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "userReal_empresasUnif.txt", false);
             foreach (var cand in candidatos)
                 foreach (var possivel in posiveisRespostas)
                 {
@@ -98,19 +111,19 @@ namespace Bettha_Scoring.Controllers
             #endregion
 
             #region calcula todos matches possiveis
-            StreamWriter saida3 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file3.txt", false);
+            StreamWriter matchUnif = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "MatchUniforme.txt", false);
             foreach (var possivel1 in posiveisRespostas)
                 foreach (var possivel2 in posiveisRespostas)
                 {
                     int score = this.calculaScore(possivel1, possivel2);
 
-                    saida3.WriteLine(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
+                    matchUnif.WriteLine(String.Join(";", String.Join(";", possivel1), String.Join(";", possivel2), score));
                 }
-            saida3.Close();
+            matchUnif.Close();
             #endregion
 
             #region calcula todos matches entre possiveis respostas e empresas
-            //StreamWriter saida4 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "file4.txt", false);
+            //StreamWriter saida4 = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "userUnif_empresasReal.txt", false);
             //foreach (var cand in posiveisRespostas)
             //    foreach (var empresa in empresas)
             //    {
@@ -120,6 +133,8 @@ namespace Bettha_Scoring.Controllers
             //    }
             //saida4.Close();
             #endregion
+
+            
 
             return View();
         }
@@ -171,6 +186,21 @@ namespace Bettha_Scoring.Controllers
             //regra 12
             if (arrayCand[1] == arrayEmpresa[5])
                 score -= min;
+
+            return score;
+
+        }
+
+        public double calculaDistanciaEuc(double[] scoresCand, double[] scoresEmpresa)
+        {
+            double score = 0;
+
+            for (int i = 0; i < scoresCand.Length; i++)
+            {
+                score += Math.Pow(scoresCand[i] - scoresEmpresa[i], 2);
+            }
+
+            score = Math.Pow(score, 0.5);
 
             return score;
 

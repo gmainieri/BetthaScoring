@@ -36,5 +36,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
         [NotMapped]
         public int[] arrayCaract;
+
+        [NotMapped]
+        public double[] scoresTeste;
     }
 }
