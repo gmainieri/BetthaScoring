@@ -35,6 +35,8 @@ namespace Bettha_Scoring.Controllers
             db.Configuration.AutoDetectChangesEnabled = false;
 
             var allUsers = db.Usuarios.Where(x => x.executions.Any()).Include(x => x.executions).ToList();
+
+            var allScoresList = new List<double>(60000);
             
             #region seis respostas superfit from db to arrays
             foreach (var user in allUsers)
@@ -51,11 +53,19 @@ namespace Bettha_Scoring.Controllers
                 user.arrayCaract = caracteristicas.OrderByDescending(x => x.score).Select(x => x.test_competence_id).ToArray();
                 user.scoresTeste = caracteristicas.Select(x => Convert.ToDouble(x.score)).ToArray();
 
+                allScoresList.AddRange(user.scoresTeste);
+
                 //externals.Add(user.id.ToString() + ";" + exec.external.ToString());
 
                 continue;
 
             } 
+            #endregion
+
+            #region calculo da media e desvpad
+            double avg = allScoresList.Average();
+            double sum = allScoresList.Sum(x => Math.Pow(x - avg, 2));
+            double desvPad = Math.Sqrt((sum) / (allScoresList.Count - 1)); 
             #endregion
 
             var candidatos = new List<application_users>();
@@ -68,6 +78,17 @@ namespace Bettha_Scoring.Controllers
                     empresas.Add(usr);
                 else
                     candidatos.Add(usr);
+            } 
+            #endregion
+
+            #region calcula os z-scores
+            foreach (var cand in candidatos)
+            {
+                cand.zScores = new double[cand.scoresTeste.Length];
+                for (int i = 0; i < cand.scoresTeste.Length; i++)
+                {
+                    cand.zScores[i] = this.Phi(cand.scoresTeste[i]);
+                }
             } 
             #endregion
 
@@ -86,12 +107,14 @@ namespace Bettha_Scoring.Controllers
             #region calcula os matches entre candidatos e empresas
             StreamWriter matchReal = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "MatchReal.txt", false);
             foreach (var cand in candidatos)
+            {
                 foreach (var empresa in empresas)
                 {
                     int score = this.calculaScore(cand.arrayCaract, empresa.arrayCaract);
 
                     matchReal.WriteLine(String.Join(";", cand.id, empresa.id, score));
                 }
+            }
             matchReal.Close();
             #endregion
 
@@ -139,7 +162,7 @@ namespace Bettha_Scoring.Controllers
             return View();
         }
 
-        public int calculaScore (int[] arrayCand, int[] arrayEmpresa)
+        private int calculaScore (int[] arrayCand, int[] arrayEmpresa)
         {
             int score = 0;
             int min = 8;    //minima concordancia/discordancia
@@ -191,7 +214,7 @@ namespace Bettha_Scoring.Controllers
 
         }
 
-        public double calculaDistanciaEuc(double[] scoresCand, double[] scoresEmpresa)
+        private double calculaDistanciaEuc(double[] scoresCand, double[] scoresEmpresa)
         {
             double score = 0;
 
@@ -204,6 +227,29 @@ namespace Bettha_Scoring.Controllers
 
             return score;
 
+        }
+
+        private double Phi(double x)
+        {
+            // constants
+            double a1 = 0.254829592;
+            double a2 = -0.284496736;
+            double a3 = 1.421413741;
+            double a4 = -1.453152027;
+            double a5 = 1.061405429;
+            double p = 0.3275911;
+
+            // Save the sign of x
+            int sign = 1;
+            if (x < 0)
+                sign = -1;
+            x = Math.Abs(x) / Math.Sqrt(2.0);
+
+            // A&S formula 7.1.26
+            double t = 1.0 / (1.0 + p * x);
+            double y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.Exp(-x * x);
+
+            return 0.5 * (1.0 + sign * y);
         }
 
         public ActionResult About()

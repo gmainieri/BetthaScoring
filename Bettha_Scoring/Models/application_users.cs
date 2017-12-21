@@ -39,5 +39,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
         [NotMapped]
         public double[] scoresTeste;
+
+        [NotMapped]
+        public double[] zScores;
     }
 }
