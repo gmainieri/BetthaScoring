@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using MathNet.Numerics.Distributions;
 
 namespace Bettha_Scoring.Controllers
 {
@@ -63,41 +64,48 @@ namespace Bettha_Scoring.Controllers
             #endregion
 
             #region calculo da media e desvpad
-            double avg = allScoresList.Average();
-            double sum = allScoresList.Sum(x => Math.Pow(x - avg, 2));
+            double average = allScoresList.Average();
+            double sum = allScoresList.Sum(x => Math.Pow(x - average, 2));
             double desvPad = Math.Sqrt((sum) / (allScoresList.Count - 1)); 
             #endregion
 
             var candidatos = new List<application_users>();
             var empresas = new List<application_users>();
 
-            #region separa candidatos de empresas
+            var distNormalPadrao = Normal.WithMeanStdDev(0.0, 1.0);
+            var distNormal = Normal.WithMeanStdDev(average, desvPad);
+
+            #region separa candidatos de empresas (calculando os z scores)
             foreach (var usr in allUsers.Where(x => x.arrayCaract != null).ToList())
             {
+                #region calculo do z score
+                usr.zScores = new double[usr.scoresTeste.Length];
+                for (int i = 0; i < usr.scoresTeste.Length; i++)
+                {
+                    usr.zScores[i] = distNormal.CumulativeDistribution(usr.scoresTeste[i]);
+                    usr.zScores[i] = distNormalPadrao.InverseCumulativeDistribution(usr.zScores[i]);
+
+                    //cand.zScores[i] = Normal.CDF(avg, desvPad, cand.scoresTeste[i]);
+                    //cand.zScores[i] = Normal.InvCDF(0.0, 1.0, cand.scoresTeste[i]);
+                } 
+                #endregion
+
+                #region separacao
                 if (usr.application_id >= 5 && usr.application_id != 10)
                     empresas.Add(usr);
                 else
-                    candidatos.Add(usr);
+                    candidatos.Add(usr); 
+                #endregion
             } 
             #endregion
 
-            #region calcula os z-scores
-            foreach (var cand in candidatos)
-            {
-                cand.zScores = new double[cand.scoresTeste.Length];
-                for (int i = 0; i < cand.scoresTeste.Length; i++)
-                {
-                    cand.zScores[i] = this.Phi(cand.scoresTeste[i]);
-                }
-            } 
-            #endregion
 
             #region calcula os matches (em dist) entre candidatos e empresas
             StreamWriter swDist = new StreamWriter(HostingEnvironment.ApplicationPhysicalPath + "distanciasReais.txt", false);
             foreach (var cand in candidatos)
                 foreach (var empresa in empresas)
                 {
-                    var dist = this.calculaDistanciaEuc(cand.scoresTeste, empresa.scoresTeste);
+                    var dist = this.calculaDistanciaEuc(cand.zScores, empresa.zScores);
 
                     swDist.WriteLine(String.Join(";", cand.id, empresa.id, dist.ToString("F2")));
                 }
