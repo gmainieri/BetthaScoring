@@ -224,14 +224,18 @@ namespace Bettha_Scoring.Controllers
 
         private double calculaDistanciaEuc(double[] scoresCand, double[] scoresEmpresa)
         {
+            double potencia = 2.0;
+            double indice = 1 / potencia;
             double score = 0;
+
 
             for (int i = 0; i < scoresCand.Length; i++)
             {
-                score += Math.Pow(scoresCand[i] - scoresEmpresa[i], 2);
+                score += Math.Pow(scoresCand[i] - scoresEmpresa[i], potencia);
+                //score += Math.Abs(scoresCand[i] - scoresEmpresa[i]);
             }
 
-            score = Math.Pow(score, 0.5);
+            score = Math.Pow(score, indice);
 
             return score;
 
