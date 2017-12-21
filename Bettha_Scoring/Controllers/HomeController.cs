@@ -42,11 +42,22 @@ namespace Bettha_Scoring.Controllers
             #region seis respostas superfit from db to arrays
             foreach (var user in allUsers)
             {
-                var exec = user.executions.Count > 1 ? 
-                    user.executions.OrderByDescending(x => x.id).First() : 
-                    user.executions.First();
+                var userExecs = user.executions.ToList();
 
-                var caracteristicas = exec.execution_competence_evaluations.Where(x => idsSuperfit.Contains(x.test_competences.id)).ToList();
+                //if (execucoes.Any() == false) continue;
+
+                var execucoesComCompetencia = userExecs.Where(x => x.execution_competence_evaluations.Any()).ToList();
+
+                var execucoesComRespostas = userExecs.Where(x => x.execution_answers.Any()).ToList();
+
+                if (execucoesComCompetencia.Any() == false)
+                    continue;
+
+                var lastExec = execucoesComCompetencia.Count > 1 ?
+                    execucoesComCompetencia.OrderByDescending(x => x.id).First() :
+                    execucoesComCompetencia.First();
+
+                var caracteristicas = lastExec.execution_competence_evaluations.Where(x => idsSuperfit.Contains(x.test_competences.id)).ToList();
 
                 if (caracteristicas.Count != 6)
                     continue;
@@ -57,6 +68,12 @@ namespace Bettha_Scoring.Controllers
                 allScoresList.AddRange(user.scoresTeste);
 
                 //externals.Add(user.id.ToString() + ";" + exec.external.ToString());
+
+                ////as respostas para fazer o match style parece que estão nesta colecao "execution answers"
+                //var extraScores = lastExec.execution_answers.Select(x => x.extra_score.ToString("F2")).ToList();
+                //var questionsIds = lastExec.execution_answers.Select(x => x.test_section_question_id.ToString()).ToList();
+                //var optionsIds = lastExec.execution_answers.Select(x => x.test_section_question_option_id.ToString()).ToList();
+                //var options = lastExec.execution_answers.Select(x => x.test_section_question_options.score).ToList();
 
                 continue;
 

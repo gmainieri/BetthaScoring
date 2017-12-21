@@ -42,5 +42,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
         [NotMapped]
         public double[] zScores;
+
+        /// <summary>
+        /// Será uma lista com 15 listas de inteiros (ou doubles, ainda não sei), 
+        /// 15 => uma lista pra cada questão do quiz, por exemplo, 
+        /// a primeira questão possui nove respostas, 
+        /// portanto a primeira lista desta lista possuirá 9 elementos
+        /// </summary>
+        [NotMapped]
+        public List<List<int>> respostasDoStyle;
     }
 }
