@@ -53,6 +53,7 @@ namespace Bettha_Scoring.Controllers
                 if (execucoesComCompetencia.Any() == false)
                     continue;
 
+                //ao inves de pegar a ultima execucao, precisa pegar a execucao com test_id = 4
                 var lastExec = execucoesComCompetencia.Count > 1 ?
                     execucoesComCompetencia.OrderByDescending(x => x.id).First() :
                     execucoesComCompetencia.First();
@@ -69,7 +70,10 @@ namespace Bettha_Scoring.Controllers
 
                 //externals.Add(user.id.ToString() + ";" + exec.external.ToString());
 
-                ////as respostas para fazer o match style parece que estão nesta colecao "execution answers"
+                ////as respostas para fazer o match style parece que estão nesta colecao "execution answers" para executions com teste_id = 2
+                //var execucoes = lastExec.execution_answers.Select(x => x.executions).ToList();
+                //var testes = execucoes.Select(x => x.tests).ToList();
+                
                 //var extraScores = lastExec.execution_answers.Select(x => x.extra_score.ToString("F2")).ToList();
                 //var questionsIds = lastExec.execution_answers.Select(x => x.test_section_question_id.ToString()).ToList();
                 //var optionsIds = lastExec.execution_answers.Select(x => x.test_section_question_option_id.ToString()).ToList();
